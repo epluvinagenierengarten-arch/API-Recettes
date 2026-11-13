@@ -4,7 +4,11 @@ export async function chercherRecette(id) {
   const response = await fetch(`${BASE}/lookup.php?i=${id}`)
   const donnees = await response.json()
 
+  if (!donnees.meals) return null
+
+
   return nettoyer(donnees.meals[0])
+  
 }
 
 function nettoyer(meal) {
