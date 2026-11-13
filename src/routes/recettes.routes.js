@@ -1,10 +1,11 @@
 import { Router } from 'express'
-import { chercherRecette } from '../services/recette.service.js'
+import { chercherRecette,chercherRecettes } from '../services/recette.service.js'
 
 const router = Router()
 
 router.get('/:id', async (req, res) => {
 
+    try{
     const { id } = req.params
 
     if (!Number.isInteger(Number(id))) {
@@ -16,7 +17,15 @@ router.get('/:id', async (req, res) => {
     if (!recette){
         return res.status(404).json({erreur: '404: Y a pas de Recette à cet ID sorry gars :('})
     }
-  res.json(recette)
+    res.json(recette)}
+    catch (err){
+        next(err)
+    }
+})
+
+router.get('/',async(req,res)=>{
+    const recettes = await chercherRecettes()
+    res.json(recettes)
 })
 
 export default router
