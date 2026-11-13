@@ -1,9 +1,9 @@
 import express from 'express'
 
+import recettesRoutes from './routes/recettes.routes.js'
+
 const app = express()
 
-app.get('/', (req,res)=> {
-    res.json({message: 'appel API réussi ^^'})
-})
+app.use('/api/recettes', recettesRoutes)
 
 export default app
